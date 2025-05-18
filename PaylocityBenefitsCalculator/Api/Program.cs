@@ -2,6 +2,7 @@ using Api.Data;
 using Api.Middleware;
 using Api.Repositories;
 using Api.Repositories.Interfaces;
+using Api.Seeds;
 using Api.Services;
 using Api.Services.Interfaces;
 using Microsoft.OpenApi.Models;
@@ -51,8 +52,8 @@ using (var scope = app.Services.CreateScope())
 {
     // This part should be executed based on the configuration that the application is running in test enviroment.
     var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<BaseDbContext>() as MemoryDbContext;
-    dbContext.SeedData();
+    var dbContext = services.GetRequiredService<BaseDbContext>();
+    TestDataSeed.SeedData(dbContext);
 }
 
 // Configure the HTTP request pipeline.
